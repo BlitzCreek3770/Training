@@ -1,5 +1,5 @@
-# Example 1.1
-# Demonstrate basic drive
+# BasicDrive.py
+# Demonstrate basic drive: forward, back, and turns
 # FRC 3770 Edison Python Programming
 
 #-------------Setup----------------

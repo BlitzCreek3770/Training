@@ -1,4 +1,4 @@
-# Example 1.2
+# BasicDriveComment.py
 # Demonstrate basic drive - with comments
 # FRC 3770 Edison Python Programming
 
@@ -25,3 +25,4 @@ Ed.Drive(Ed.SPIN_LEFT, Ed.SPEED_3, 90)
 
 # Drive in reverse at slow speed for 10 inches
 Ed.Drive(Ed.BACKWARD, Ed.SPEED_2, 10)
+
