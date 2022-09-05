@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 
 public class Robot extends TimedRobot
 {
-    private Servo motorcontroller; 
+    private Servo motorController1, motorController2;
     private XboxController controlUnit;
     private Spark leftMotor = new Spark(0);
     private Spark rightMotor = new Spark(1);
@@ -29,7 +29,8 @@ public class Robot extends TimedRobot
     //-------------------------------------------------
     public void robotInit() 
     {
-        motorcontroller = new Servo(3);
+        motorController1 = new Servo(2);
+        motorController2 = new Servo(3);
         // Correct orientation of motor (i.e. direction for positive value)
         controlUnit  = new XboxController(0);  
 
@@ -62,9 +63,14 @@ public class Robot extends TimedRobot
        }
 
        if (controlUnit.getAButtonPressed())
-           motorcontroller.set(1.0);
+           motorController1.set(1.0);
        if (controlUnit.getBButtonPressed())
-           motorcontroller.set(0.0);
+           motorController1.set(0.0);
+       if (controlUnit.getXButtonPressed())
+           motorController2.set(1.0);
+       if (controlUnit.getYButtonPressed())
+           motorController2.set(0.0);
+
 
     }
      // ----------------------------------------------------------------------------
@@ -86,13 +92,13 @@ public class Robot extends TimedRobot
         {
             leftMotor.set(0.5);
             rightMotor.set(0.5);
-            motorcontroller.set(0.0);
+            motorController1.set(0.0);
         }
         else
         {
             leftMotor.set(0.0);
             rightMotor.set(0.0);
-            motorcontroller.set(1.0);
+            motorController1.set(1.0);
         }  
         
     }    
