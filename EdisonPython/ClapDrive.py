@@ -8,12 +8,16 @@ import Ed
 
 Ed.EdisonVersion = Ed.V2
 
-Ed.DistanceUnits = Ed.CM
+Ed.DistanceUnits = Ed.INCH
 Ed.Tempo = Ed.TEMPO_MEDIUM
 
 #--------Your code below-----------
 
+# Continually read clap sensor.  If no clap, do nothing.
 Ed.ReadClapSensor()
-while Ed.ReadClapSensor() != Ed.CLAP_DETECTED:
+while Ed.ReadClapSensor() == False:
     pass
-Ed.Drive(Ed.FORWARD, Ed.SPEED_10, 15)
+
+# After clap, perform primary program action.
+Ed.Drive(Ed.FORWARD,Ed.SPEED_6,20)
+    
