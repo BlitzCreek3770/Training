@@ -12,11 +12,10 @@ Ed.Tempo = Ed.TEMPO_MEDIUM
 
 #--------Your code below-----------
 
-# Loop Forever
+# Loop Forever.  If the left light level is higher, drive to the left.
+# Otherwise, the light is on the right so drive to the right.
 while True:
 	if Ed.ReadLeftLightLevel()>Ed.ReadRightLightLevel():
-		#If the left light level is higher, drive to the left
 		Ed.Drive(Ed.FORWARD_LEFT, Ed.SPEED_4, Ed.DISTANCE_UNLIMITED)
 	else:
-		#otherwise, the light is on the right so drive to the right
 		Ed.Drive(Ed.FORWARD_RIGHT, Ed.SPEED_4, Ed.DISTANCE_UNLIMITED)
