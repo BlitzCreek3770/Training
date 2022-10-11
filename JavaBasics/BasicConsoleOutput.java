@@ -1,6 +1,6 @@
 // Team 3770 Robotics Programming
 // Example: BasicConsoleOutput
-//
+// Demonstrates basic Java console output
 
 public class BasicConsoleOutput
 {
