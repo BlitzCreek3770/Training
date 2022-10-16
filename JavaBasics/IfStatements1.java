@@ -1,5 +1,5 @@
 // Team 3770 Robotics Programming
-// Example: IfStatements
+// Example: IfStatements1
 // Demonstrates various examples of Java selection (if) control
 
 public class IfStatements1
