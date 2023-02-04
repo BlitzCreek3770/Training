@@ -10,18 +10,24 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // Imports
-import frc.robot.Constants;  
+import frc.robot.Constants;
+import frc.robot.sensors.GyroSensor;  
 
 public class DriveSystem extends SubsystemBase
 {
     // Instantiate robot objects by calling constructors
     private TalonSRX leftMotor1,leftMotor2,rightMotor1,rightMotor2;
+    private GyroSensor gyro;
 
     // ----------------------------------------------------------------------------
-    public DriveSystem() 
+    public DriveSystem(GyroSensor g) 
     {
        super();   // Connect with Subsystem superclass by calling constructor
 
+       gyro = g;
+       
+       gyro.resetGyro();
+       
         // Instantiate robot objects by calling constructors
         leftMotor1  = new TalonSRX(Constants.LEFT_MOTOR1_CAN_ID);
         leftMotor2  = new TalonSRX(Constants.LEFT_MOTOR2_CAN_ID);
@@ -63,8 +69,18 @@ public class DriveSystem extends SubsystemBase
         leftMotor2.set(ControlMode.PercentOutput,inputLeft);
         rightMotor1.set(ControlMode.PercentOutput,inputRight);
         rightMotor2.set(ControlMode.PercentOutput,inputRight); 
+
+
      } 
 
     // ----------------------------------------------------------------------------
+     public double getAngle()
+     {
+        return gyro.getYaw();
+     }
+
+
+
+
 
 }

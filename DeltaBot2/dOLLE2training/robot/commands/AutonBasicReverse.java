@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 
-public class AutonBasic extends CommandBase
+public class AutonBasicReverse extends CommandBase
 {
   private final DriveSystem driveSystem;
   Timer autonDriveTimer;
   
-  public AutonBasic(DriveSystem d)
+  public AutonBasicReverse(DriveSystem d)
   {
     driveSystem  = d;
 
@@ -38,7 +38,7 @@ public class AutonBasic extends CommandBase
   @Override
   public void execute()
   {
-    driveSystem.drive(-1 * Constants.SIMPLE_AUTON_POWER, -1 * Constants.SIMPLE_AUTON_POWER);
+    driveSystem.drive(Constants.SIMPLE_AUTON_POWER,Constants.SIMPLE_AUTON_POWER);
   }
 
   // ----------------------------------------------------------------------------

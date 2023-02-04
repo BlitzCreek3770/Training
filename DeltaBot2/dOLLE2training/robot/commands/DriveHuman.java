@@ -9,6 +9,8 @@ package frc.robot.commands;
 
 // Imports
 import java.util.function.DoubleSupplier;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSystem;
 
@@ -35,6 +37,11 @@ public class DriveHuman extends CommandBase
   @Override
   public void execute()
   {
+    SmartDashboard.putNumber("left motor", leftStickValue.getAsDouble());
+    SmartDashboard.putNumber("right motor", rightStickValue.getAsDouble());
+
+    SmartDashboard.putNumber("gyro", driveSystem.getAngle());
+
     driveSystem.drive(rightStickValue.getAsDouble(),leftStickValue.getAsDouble());
   }
 

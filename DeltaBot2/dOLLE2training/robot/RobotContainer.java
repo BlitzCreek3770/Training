@@ -4,20 +4,16 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 // Imports
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.AutonBasic;
-import frc.robot.commands.DriveHuman;
-import frc.robot.commands.Whirl;
-import frc.robot.subsystems.DriveSystem;
-import frc.robot.subsystems.Plunger;
-import frc.robot.subsystems.Revver;
-import frc.robot.subsystems.Whirligig;
+import frc.robot.commands.*;
+import frc.robot.sensors.GyroSensor;
+import frc.robot.subsystems.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -32,16 +28,34 @@ public class RobotContainer
   private final Joystick rightStick = new Joystick(Constants.RIGHT_STICK_USB_PORT);
 
   // Instantiate all robot subsystems
-  private final DriveSystem  driveSystem  = new DriveSystem();
+  private final GyroSensor   gyro         = new GyroSensor();
+  private final DriveSystem  driveSystem  = new DriveSystem(gyro);
   private final Whirligig    whirligig    = new Whirligig();
   private final Plunger      plunger      = new Plunger();
   private final Revver       revver       = new Revver();
+
+
+
+  //make a chooser to select different Auton things
+  private final SendableChooser<Command>  autonChooser  = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() 
   {
     // Configure the button bindings
     configureButtonBindings();
+
+
+    autonChooser.setDefaultOption("Basic Auton 1",
+			new AutonBasic(driveSystem));
+
+    autonChooser.addOption("Basic Auton 2",
+			new AutonBasicReverse(driveSystem));
+
+    autonChooser.addOption("Basic Auton 3",
+			new AutonBasicGyro(driveSystem));
+
+    SmartDashboard.putData(autonChooser);
 
     driveSystem.setDefaultCommand(
        new DriveHuman(driveSystem,
@@ -77,10 +91,8 @@ public class RobotContainer
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() 
-  {
-    return new AutonBasic(driveSystem);
-  }
+  public Command getAutonomousCommand()
+	{
+		return autonChooser.getSelected();
+	}
 }
-
-//two autons next time

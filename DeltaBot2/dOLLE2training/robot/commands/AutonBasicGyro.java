@@ -4,18 +4,21 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 // Imports
 import frc.robot.subsystems.DriveSystem;
-import edu.wpi.first.wpilibj2.command.*;
-import edu.wpi.first.wpilibj.Timer;
-import frc.robot.Constants;
 
-public class AutonBasic extends CommandBase
+public class AutonBasicGyro extends CommandBase
 {
   private final DriveSystem driveSystem;
   Timer autonDriveTimer;
+  double autonPowerLeft = 0;
+    double autonPowerRight = 0;
   
-  public AutonBasic(DriveSystem d)
+  public AutonBasicGyro(DriveSystem d)
   {
     driveSystem  = d;
 
@@ -27,6 +30,9 @@ public class AutonBasic extends CommandBase
   @Override
   public void initialize() 
   { 
+    autonPowerLeft = Constants.SIMPLE_AUTON_POWER;
+    autonPowerRight = Constants.SIMPLE_AUTON_POWER;
+
     autonDriveTimer = new Timer();
     autonDriveTimer.reset();     // Ready timer - Set to zero
     autonDriveTimer.start();   
@@ -38,7 +44,25 @@ public class AutonBasic extends CommandBase
   @Override
   public void execute()
   {
-    driveSystem.drive(-1 * Constants.SIMPLE_AUTON_POWER, -1 * Constants.SIMPLE_AUTON_POWER);
+    SmartDashboard.putNumber("gyro", driveSystem.getAngle());
+
+    if (driveSystem.getAngle() >= 5)
+    {
+      autonPowerRight = autonPowerRight + autonPowerRight * 0.01;
+      autonPowerLeft = autonPowerLeft - autonPowerLeft * 0.01;
+    }
+    else if (driveSystem.getAngle() <= -5)
+    {
+      autonPowerLeft = autonPowerLeft + autonPowerLeft * 0.01;
+      autonPowerRight = autonPowerRight - autonPowerRight * 0.01;
+    }
+    else
+    {
+      autonPowerLeft = Constants.SIMPLE_AUTON_POWER;
+      autonPowerRight = Constants.SIMPLE_AUTON_POWER;
+    }
+
+    driveSystem.drive(-1 * autonPowerRight,-1 * autonPowerLeft);
   }
 
   // ----------------------------------------------------------------------------
@@ -46,7 +70,7 @@ public class AutonBasic extends CommandBase
   @Override
   public boolean isFinished() 
   {
-    if (autonDriveTimer.get() > Constants.SIMPLE_AUTON_DRIVE_TIME)
+    if (autonDriveTimer.get() > 12.0)
       return true;
     else
       return false;

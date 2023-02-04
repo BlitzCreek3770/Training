@@ -17,6 +17,8 @@ package frc.robot;
  * CTRE:   https://maven.ctr-electronics.com/release/com/ctre/phoenix/Phoenix5-frc2023-latest.json
  * 
  * Rev:  https://software-metadata.revrobotics.com/REVLib-2023.json
+ * 
+ * Navx:    https://dev.studica.com/releases/2023/NavX.json
 */
 
 public final class Constants 
