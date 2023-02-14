@@ -48,4 +48,20 @@ public final class Constants
     // Pneumatics
     public static final int PNEUMATICS_IN_PORT   = 7;     
     public static final int PNEUMATICS_OUT_PORT  = 4;
+
+
+    // Gyros PID settings
+    public static final double GYRO_PID_TOLERANCE                = 2.0;
+    public static final double GYRO_PID_P                        = 0.01;
+    public static final double GYRO_PID_I                        = 0.0;
+    public static final double GYRO_PID_D                        = 0.0;
+
+    public static final double ENCODER_INCHES_PER_TICK = 0.00303075;
+
+    public static final double TURN_ANGLE_TOLERANCE = 2.0;
+    public static final double TURN_TIME_LIMIT      = 3.0;
+
+        // Encoder ports for counter variables
+        public static final int LT_ENCODER_DIGITAL_PORT     = 2;
+        public static final int RT_ENCODER_DIGITAL_PORT     = 4;
 }

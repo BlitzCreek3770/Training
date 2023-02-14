@@ -21,12 +21,12 @@ public class Revver extends SubsystemBase {
 
     public void spinForward()
     {
-        revMotor.set(0.5);
+        revMotor.set(0.25);
     }
 
     public void spinReverse()
     {
-        revMotor.set(-0.5);
+        revMotor.set(-0.25);
     }
 
     public void stop()

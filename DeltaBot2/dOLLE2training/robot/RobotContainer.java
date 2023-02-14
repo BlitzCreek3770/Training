@@ -55,6 +55,9 @@ public class RobotContainer
     autonChooser.addOption("Basic Auton 3",
 			new AutonBasicGyro(driveSystem));
 
+      autonChooser.addOption("PID Auton",
+			new AutonRoutine2(driveSystem));
+
     SmartDashboard.putData(autonChooser);
 
     driveSystem.setDefaultCommand(
@@ -72,18 +75,18 @@ public class RobotContainer
    */
   private void configureButtonBindings() 
   {
-    new JoystickButton(leftStick, 5).onTrue(new Whirl(whirligig));
+    new JoystickButton(leftStick, 4).onTrue(new Whirl(whirligig));
 
-    new JoystickButton(rightStick, 4).onTrue(new InstantCommand(() -> whirligig.spinForward(), whirligig));
+    new JoystickButton(rightStick, 3).onTrue(new InstantCommand(() -> whirligig.spinForward(), whirligig));
     new JoystickButton(rightStick, 5).onTrue(new InstantCommand(() -> whirligig.stop(), whirligig));
-    new JoystickButton(rightStick, 6).onTrue(new InstantCommand(() -> whirligig.spinReverse(), whirligig));
+    new JoystickButton(rightStick, 2).onTrue(new InstantCommand(() -> whirligig.spinReverse(), whirligig));
 
-    new JoystickButton(rightStick, 2).onTrue(new InstantCommand(() -> plunger.punchIn(), plunger));
-    new JoystickButton(rightStick, 3).onTrue(new InstantCommand(() -> plunger.punchOut(), plunger));
+    new JoystickButton(rightStick, 6).onTrue(new InstantCommand(() -> plunger.punchIn(), plunger));
+    new JoystickButton(rightStick, 4).onTrue(new InstantCommand(() -> plunger.punchOut(), plunger));
 
-    new JoystickButton(leftStick, 3).onTrue(new InstantCommand(() -> revver.stop(), revver));
-    new JoystickButton(leftStick, 2).onTrue(new InstantCommand(() -> revver.spinForward(), revver));
-    new JoystickButton(leftStick, 6).onTrue(new InstantCommand(() -> revver.spinReverse(), revver));
+    new JoystickButton(leftStick, 2).onTrue(new InstantCommand(() -> revver.stop(), revver));
+    new JoystickButton(leftStick, 6).onTrue(new InstantCommand(() -> revver.spinForward(), revver));
+    new JoystickButton(leftStick, 5).onTrue(new InstantCommand(() -> revver.spinReverse(), revver));
   }
 
   /**

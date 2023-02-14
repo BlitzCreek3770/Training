@@ -12,12 +12,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // Imports
 import frc.robot.Constants;
 import frc.robot.sensors.GyroSensor;  
+import edu.wpi.first.wpilibj.Counter;
 
 public class DriveSystem extends SubsystemBase
 {
     // Instantiate robot objects by calling constructors
     private TalonSRX leftMotor1,leftMotor2,rightMotor1,rightMotor2;
     private GyroSensor gyro;
+    
+
+    private  Counter leftEncoder;
+    private  Counter rightEncoder;
 
     // ----------------------------------------------------------------------------
     public DriveSystem(GyroSensor g) 
@@ -37,6 +42,11 @@ public class DriveSystem extends SubsystemBase
         // Reverse rotation (polarity) of left motor set
         leftMotor1.setInverted(true);
         leftMotor2.setInverted(true);
+
+       // Instantiate encoders as simple counters
+
+       leftEncoder  = new Counter(Constants.LT_ENCODER_DIGITAL_PORT);
+       rightEncoder = new Counter(Constants.RT_ENCODER_DIGITAL_PORT);
 
     }
     
@@ -70,7 +80,6 @@ public class DriveSystem extends SubsystemBase
         rightMotor1.set(ControlMode.PercentOutput,inputRight);
         rightMotor2.set(ControlMode.PercentOutput,inputRight); 
 
-
      } 
 
     // ----------------------------------------------------------------------------
@@ -79,8 +88,58 @@ public class DriveSystem extends SubsystemBase
         return gyro.getYaw();
      }
 
+  // GYRO
 
+  public double getGyroAngle()
+  {
+    return gyro.getMeasurement();
+  }
 
+  public void enablePID()
+  {
+    gyro.enable();
+  }
+
+  public void disablePID()
+  {
+    gyro.disable();
+  }
+  public void setAngleSetpoint(double angle)
+  {
+    gyro.setSetpoint(angle);
+  }
+
+  public double getGyroPIDoutput()
+  {
+    return gyro.getOutput();
+  }
+
+ // ----------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------
+  // ENCODERS
+
+  public void resetEncoders() 
+  {
+    leftEncoder.reset();
+    rightEncoder.reset();
+  }
+
+  public int getLeftEncoderCount() 
+  {
+    return leftEncoder.get();
+  }
+
+  public int getRightEncoderCount() 
+  {
+    return rightEncoder.get();
+  }
+
+  // Average both encoders and multiply by conversion factor.
+  // Returns inches moved since last reset.
+  public double getInchesMoved()
+  {
+    return (rightEncoder.get() + leftEncoder.get()) * Constants.ENCODER_INCHES_PER_TICK;
+  }
 
 
 }
